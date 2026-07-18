@@ -1,4 +1,4 @@
-cat > Dockerfile << 'EOF'
+
 FROM php:8.3-fpm-alpine
 
 RUN apk add --no-cache \
@@ -31,4 +31,3 @@ RUN chmod +x /start.sh
 EXPOSE 10000
 
 CMD ["/start.sh"]
-EOF
