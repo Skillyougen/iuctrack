@@ -1,8 +1,7 @@
-
 FROM php:8.3-fpm-alpine
 
 RUN apk add --no-cache \
-        nginx supervisor curl zip unzip git \
+        nginx curl zip unzip git \
         libpng-dev oniguruma-dev libzip-dev \
         libpq-dev freetype-dev libjpeg-turbo-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
@@ -14,9 +13,11 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-COPY . .
+COPY composer.json composer.lock ./
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+RUN composer install --no-dev --optimize-autoloader --no-interaction 2>&1 || (cat /tmp/composer*.log 2>/dev/null; exit 1)
+
+COPY . .
 
 RUN mkdir -p storage/logs storage/framework/cache \
         storage/framework/sessions storage/framework/views \
