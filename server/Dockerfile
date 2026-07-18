@@ -1,4 +1,4 @@
-FROM php:8.2-fpm-alpine
+FROM php:8.3-fpm-alpine
 
 # Dépendances système
 RUN apk add --no-cache \
@@ -8,8 +8,6 @@ RUN apk add --no-cache \
     zip \
     unzip \
     git \
-    nodejs \
-    npm \
     libpng-dev \
     oniguruma-dev \
     libzip-dev \
