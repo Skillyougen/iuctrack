@@ -13,11 +13,9 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-COPY composer.json composer.lock ./
+COPY . .
 
 RUN composer install --no-dev --optimize-autoloader --no-interaction
-
-COPY . .
 
 RUN mkdir -p storage/logs storage/framework/cache \
         storage/framework/sessions storage/framework/views \
