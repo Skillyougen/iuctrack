@@ -1,6 +1,6 @@
+cat > Dockerfile << 'EOF'
 FROM php:8.3-fpm-alpine
 
-# Dépendances
 RUN apk add --no-cache \
         nginx supervisor curl zip unzip git \
         libpng-dev oniguruma-dev libzip-dev \
@@ -23,8 +23,12 @@ RUN mkdir -p storage/logs storage/framework/cache \
         bootstrap/cache \
     && chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
+
 COPY docker/nginx.conf /etc/nginx/nginx.conf
-RUN chmod +x /var/www/html/docker/start.sh
+COPY docker/start.sh /start.sh
+RUN chmod +x /start.sh
+
 EXPOSE 10000
 
-CMD ["/var/www/html/docker/start.sh"]
+CMD ["/start.sh"]
+EOF
