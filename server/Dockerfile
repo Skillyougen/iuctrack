@@ -1,4 +1,4 @@
-FROM php:8.4-fpm-alpine
+FROM php:8.3-fpm-alpine
 
 RUN apk add --no-cache \
         nginx curl zip unzip git \
@@ -7,16 +7,17 @@ RUN apk add --no-cache \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
         pdo pdo_pgsql pgsql \
-        mbstring zip gd \
-    && docker-php-ext-enable opcache
+        mbstring zip gd opcache
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-COPY . .
+COPY composer.json composer.lock ./
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+RUN composer install --no-dev --optimize-autoloader --no-interaction 2>&1 || (cat /tmp/composer*.log 2>/dev/null; exit 1)
+
+COPY . .
 
 RUN mkdir -p storage/logs storage/framework/cache \
         storage/framework/sessions storage/framework/views \
