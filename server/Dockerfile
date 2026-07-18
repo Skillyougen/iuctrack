@@ -13,6 +13,9 @@ RUN apk add --no-cache \
     libzip-dev \
     libpq-dev \
     icu-dev \
+    freetype-dev \
+    libjpeg-turbo-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
         pdo \
         pdo_mysql \
@@ -21,16 +24,21 @@ RUN apk add --no-cache \
         opcache \
         gd \
         mbstring \
-        zip
+        zip \
+        intl \
+        bcmath \
+        pcntl
 
 # Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-COPY . .
+COPY composer.json composer.lock ./
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+RUN composer install --no-dev --optimize-autoloader --no-interaction --verbose
+
+COPY . .
 
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \
