@@ -1,4 +1,4 @@
-FROM php:8.3-fpm-alpine
+FROM php:8.4-fpm-alpine
 
 RUN apk add --no-cache \
         nginx curl zip unzip git \
@@ -15,7 +15,7 @@ WORKDIR /var/www/html
 
 COPY composer.json composer.lock ./
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction 2>&1 || (cat /tmp/composer*.log 2>/dev/null; exit 1)
+RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 COPY . .
 
