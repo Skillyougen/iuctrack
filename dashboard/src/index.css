@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Instrument Sans', 'Inter', sans-serif;
+  background-color: #1B2026;
+}
+
+input, button, select, textarea { font-family: inherit; }
+
+::selection { background: rgba(196, 58, 47, 0.35); }
+
+/* Titres display — appliquer via style={{ fontFamily: 'Bricolage Grotesque' }} ou classe .display */
+.display { font-family: 'Bricolage Grotesque', 'Instrument Sans', sans-serif; }
+
+/* Scrollbars discrètes */
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 151, 165, 0.35);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-track { background: transparent; }
+
+/* Animations partagées */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes pulseDot {
+  0%   { box-shadow: 0 0 0 0 rgba(233, 168, 76, 0.55); }
+  70%  { box-shadow: 0 0 0 9px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE — tablette ≤ 1120px · mobile ≤ 760px
+   Les grilles inline reçoivent une classe (g-*) que ces media
+   queries surchargent avec !important.
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 1120px) {
+  /* Sidebar → tiroir coulissant (ouvert via le bouton menu de la topbar) */
+  .app-sidebar { transform: translateX(-105%); transition: transform 0.25s ease; }
+  .app-sidebar.open { transform: none; box-shadow: 24px 0 70px rgba(0, 0, 0, 0.45); }
+  .layout-main-col { margin-left: 0 !important; }
+
+  /* Grilles */
+  .g-kpi4 { grid-template-columns: repeat(2, 1fr) !important; }
+  .g-3col { grid-template-columns: repeat(2, 1fr) !important; }
+  .g-2col, .g-side, .g-split { grid-template-columns: 1fr !important; }
+
+  /* Panneau détail (Demandes / Étudiants) : passe au-dessus de la liste */
+  .split-detail { position: static !important; max-height: none !important; order: -1; }
+}
+
+@media (max-width: 900px) {
+  /* Login : les deux panneaux s'empilent */
+  .login-root { flex-direction: column; }
+  .login-left { padding: 44px 32px 52px !important; }
+  .login-right { width: 100% !important; }
+  .login-copy { position: static !important; margin-top: 32px; }
+}
+
+@media (max-width: 760px) {
+  .g-3col, .g-form2 { grid-template-columns: 1fr !important; }
+  .g-kpi4 { gap: 10px !important; }
+  .login-left { padding: 36px 22px 44px !important; }
+  .login-left h1 { font-size: 36px !important; letter-spacing: -1px !important; }
+  .login-right { padding: 28px 18px 52px !important; }
+}
