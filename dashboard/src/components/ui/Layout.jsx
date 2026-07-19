@@ -4,22 +4,18 @@ import Sidebar from './Sidebar';
 import api from '../../services/api';
 import { useSettings } from '../../context/SettingsContext';
 import { useAuth } from '../../context/AuthContext';
-import useBreakpoint from '../../hooks/useBreakpoint';
-import { Search, Bell, Sun, Moon, FileText, Menu } from 'lucide-react';
+import { Search, Bell, Sun, Moon, FileText } from 'lucide-react';
 
-// Layout v3 : responsive — sidebar fixe 240px sur desktop, tiroir + bouton menu ≤1120px,
-// topbar compactée sur mobile. Recherche globale ⌘K inchangée (données réelles).
+// Layout v2 : sidebar fixe 240px + topbar (recherche globale ⌘K, langue, thème, notifs, profil)
+// La recherche interroge les données RÉELLES (/admin/demandes + /admin/etudiants) et filtre côté client.
 
 export default function Layout() {
   const { colors, t, theme, langue, toggleTheme, toggleLangue } = useSettings();
   const { admin } = useAuth();
   const navigate = useNavigate();
-  const { isMobile, isNarrow } = useBreakpoint();
   const [searchOpen, setSearchOpen] = useState(false);
-  const [navOpen, setNavOpen] = useState(false);
 
   useEffect(() => { document.body.style.backgroundColor = colors.bg; }, [colors]);
-  useEffect(() => { if (!isNarrow) setNavOpen(false); }, [isNarrow]);
 
   useEffect(() => {
     const onKey = (e) => {
@@ -30,79 +26,58 @@ export default function Layout() {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
-  const iconBtn = { width: 38, height: 38, flexShrink: 0, borderRadius: 12, backgroundColor: colors.card, border: `1px solid ${colors.border}`, color: colors.text, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' };
-
   return (
     <div style={{ display: 'flex', backgroundColor: colors.bg, minHeight: '100vh', fontFamily: "'Instrument Sans', sans-serif" }}>
-      <Sidebar open={navOpen} onClose={() => setNavOpen(false)} />
-
-      {/* Voile derrière le tiroir (tablette / mobile) */}
-      {isNarrow && navOpen && (
-        <div onClick={() => setNavOpen(false)}
-          style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(10,13,17,0.55)', backdropFilter: 'blur(2px)', zIndex: 49 }} />
-      )}
-
-      <div className="layout-main-col" style={{ marginLeft: 240, flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+      <Sidebar />
+      <div style={{ marginLeft: 240, flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
 
         {/* TOPBAR */}
-        <div style={{ height: 66, display: 'flex', alignItems: 'center', gap: isMobile ? 8 : 14, padding: isMobile ? '0 14px' : '0 28px', borderBottom: `1px solid ${colors.border}`, backgroundColor: colors.bg, position: 'sticky', top: 0, zIndex: 40 }}>
-
-          {/* Menu (tiroir) — visible uniquement ≤1120px */}
-          {isNarrow && (
-            <button onClick={() => setNavOpen(true)} style={iconBtn} title="Menu">
-              <Menu size={17} />
-            </button>
-          )}
-
+        <div style={{ height: 66, display: 'flex', alignItems: 'center', gap: 14, padding: '0 28px', borderBottom: `1px solid ${colors.border}`, backgroundColor: colors.bg, position: 'sticky', top: 0, zIndex: 40 }}>
           <button onClick={() => setSearchOpen(true)}
-            style={{ flex: 1, maxWidth: 430, minWidth: 0, display: 'flex', alignItems: 'center', gap: 10, backgroundColor: colors.card, border: `1px solid ${colors.border}`, borderRadius: 12, padding: '10px 14px', color: colors.muted, cursor: 'pointer', textAlign: 'left' }}>
-            <Search size={15} style={{ flexShrink: 0 }} />
-            <span style={{ flex: 1, fontSize: 13, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{t.rechercher}</span>
-            {!isMobile && (
-              <span style={{ fontSize: 10.5, border: `1px solid ${colors.border}`, borderRadius: 6, padding: '2px 7px', fontWeight: 600 }}>⌘K</span>
-            )}
+            style={{ flex: 1, maxWidth: 430, display: 'flex', alignItems: 'center', gap: 10, backgroundColor: colors.card, border: `1px solid ${colors.border}`, borderRadius: 12, padding: '10px 14px', color: colors.muted, cursor: 'pointer', textAlign: 'left' }}>
+            <Search size={15} />
+            <span style={{ flex: 1, fontSize: 13 }}>{t.rechercher}</span>
+            <span style={{ fontSize: 10.5, border: `1px solid ${colors.border}`, borderRadius: 6, padding: '2px 7px', fontWeight: 600 }}>⌘K</span>
           </button>
           <div style={{ flex: 1 }} />
 
           {/* Langue */}
-          <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0, backgroundColor: colors.card, border: `1px solid ${colors.border}`, borderRadius: 999, padding: 3 }}>
+          <div style={{ display: 'flex', alignItems: 'center', backgroundColor: colors.card, border: `1px solid ${colors.border}`, borderRadius: 999, padding: 3 }}>
             {['fr', 'en'].map(l => (
               <button key={l} onClick={() => toggleLangue(l)}
-                style={{ fontSize: 11.5, fontWeight: langue === l ? 700 : 600, color: langue === l ? '#FFFFFF' : colors.muted, backgroundColor: langue === l ? colors.red : 'transparent', border: 'none', padding: isMobile ? '5px 9px' : '5px 12px', borderRadius: 999, cursor: 'pointer' }}>
+                style={{ fontSize: 11.5, fontWeight: langue === l ? 700 : 600, color: langue === l ? '#FFFFFF' : colors.muted, backgroundColor: langue === l ? colors.red : 'transparent', border: 'none', padding: '5px 12px', borderRadius: 999, cursor: 'pointer' }}>
                 {l.toUpperCase()}
               </button>
             ))}
           </div>
 
-          {/* Thème — masqué sur mobile (disponible dans Paramètres) */}
-          {!isMobile && (
-            <button onClick={() => toggleTheme(theme === 'dark' ? 'light' : 'dark')} title={t.theme} style={iconBtn}>
-              {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
-            </button>
-          )}
+          {/* Thème */}
+          <button onClick={() => toggleTheme(theme === 'dark' ? 'light' : 'dark')} title={t.theme}
+            style={{ width: 38, height: 38, borderRadius: 12, backgroundColor: colors.card, border: `1px solid ${colors.border}`, color: colors.text, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
 
           {/* Notifications */}
-          <button onClick={() => navigate('/notifications')} style={{ ...iconBtn, position: 'relative' }}>
+          <button onClick={() => navigate('/notifications')}
+            style={{ width: 38, height: 38, borderRadius: 12, backgroundColor: colors.card, border: `1px solid ${colors.border}`, color: colors.text, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
             <Bell size={16} />
             <span style={{ position: 'absolute', top: 8, right: 9, width: 7, height: 7, borderRadius: '50%', backgroundColor: colors.red, border: `1.5px solid ${colors.card}` }} />
           </button>
 
           {/* Profil — infos réelles du compte connecté */}
           <button onClick={() => navigate('/profil')}
-            style={{ display: 'flex', alignItems: 'center', flexShrink: 0, gap: 9, cursor: 'pointer', padding: '4px 6px 4px 4px', borderRadius: 12, background: 'none', border: 'none' }}>
+            style={{ display: 'flex', alignItems: 'center', gap: 9, cursor: 'pointer', padding: '4px 6px 4px 4px', borderRadius: 12, background: 'none', border: 'none' }}>
             <div style={{ width: 34, height: 34, borderRadius: 10, backgroundColor: colors.red, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 800, color: '#FFFFFF' }}>
               {admin?.nom?.charAt(0)}{admin?.prenom?.charAt(0)}
             </div>
-            {!isMobile && (
-              <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: 12.5, fontWeight: 700, lineHeight: 1.1, color: colors.text }}>{admin?.prenom}</div>
-                <div style={{ fontSize: 10, color: colors.muted }}>{admin?.role === 'super_admin' ? 'Super Admin' : 'Admin'}</div>
-              </div>
-            )}
+            <div style={{ textAlign: 'left' }}>
+              <div style={{ fontSize: 12.5, fontWeight: 700, lineHeight: 1.1, color: colors.text }}>{admin?.prenom}</div>
+              <div style={{ fontSize: 10, color: colors.muted }}>{admin?.role === 'super_admin' ? 'Super Admin' : 'Admin'}</div>
+            </div>
           </button>
         </div>
 
-        <main style={{ flex: 1, padding: isMobile ? '20px 16px 44px' : '28px 32px 48px', maxWidth: 1240, width: '100%', margin: '0 auto' }}>
+        <main style={{ flex: 1, padding: '28px 32px 48px', maxWidth: 1240, width: '100%', margin: '0 auto' }}>
           <Outlet />
         </main>
       </div>
@@ -149,12 +124,12 @@ function GlobalSearch({ onClose }) {
   const row = { display: 'flex', alignItems: 'center', gap: 11, padding: '10px 14px', borderRadius: 12, cursor: 'pointer', width: '100%', background: 'none', border: 'none', textAlign: 'left' };
 
   return (
-    <div onClick={onClose} style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(10,13,17,0.62)', backdropFilter: 'blur(3px)', zIndex: 100, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', padding: '12vh 14px 0' }}>
-      <div onClick={e => e.stopPropagation()} style={{ width: 620, maxWidth: '100%', backgroundColor: colors.surface, border: `1px solid ${colors.border}`, borderRadius: 20, boxShadow: colors.shadow, overflow: 'hidden', animation: 'fadeUp 0.22s ease both' }}>
+    <div onClick={onClose} style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(10,13,17,0.62)', backdropFilter: 'blur(3px)', zIndex: 100, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '12vh' }}>
+      <div onClick={e => e.stopPropagation()} style={{ width: 620, maxWidth: '92vw', backgroundColor: colors.surface, border: `1px solid ${colors.border}`, borderRadius: 20, boxShadow: colors.shadow, overflow: 'hidden', animation: 'fadeUp 0.22s ease both' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '16px 20px', borderBottom: `1px solid ${colors.border}` }}>
           <Search size={17} color={colors.red} />
           <input autoFocus value={q} onChange={e => setQ(e.target.value)} placeholder={t.rechercher}
-            style={{ flex: 1, minWidth: 0, background: 'none', border: 'none', outline: 'none', color: colors.text, fontSize: 15.5 }} />
+            style={{ flex: 1, background: 'none', border: 'none', outline: 'none', color: colors.text, fontSize: 15.5 }} />
           <button onClick={onClose} style={{ fontSize: 10.5, border: `1px solid ${colors.border}`, borderRadius: 6, padding: '3px 8px', color: colors.muted, cursor: 'pointer', fontWeight: 600, background: 'none' }}>ESC</button>
         </div>
         <div style={{ maxHeight: '52vh', overflowY: 'auto', padding: '10px 8px 14px' }}>

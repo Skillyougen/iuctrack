@@ -81,7 +81,7 @@ export default function ProfilAdminPage() {
       )}
 
       {/* CARTE HÉROS — panneau crème, données réelles du compte */}
-      <div style={{ backgroundColor: colors.panel, color: colors.panelInk, borderRadius: 20, padding: 22, border: `1px solid ${colors.panelBorder}`, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 18, flexWrap: 'wrap' }}>
+      <div style={{ backgroundColor: colors.panel, color: colors.panelInk, borderRadius: 20, padding: 22, border: `1px solid ${colors.panelBorder}`, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 18 }}>
         <div style={{ width: 72, height: 72, borderRadius: 20, backgroundColor: colors.red, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, fontWeight: 800, color: '#FFFFFF', fontFamily: DISPLAY }}>
           {admin?.nom?.charAt(0)}{admin?.prenom?.charAt(0)}
         </div>
@@ -114,7 +114,7 @@ export default function ProfilAdminPage() {
             </div>
           )}
         </div>
-        <div className="g-form2" style={{ padding: '18px 20px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+        <div style={{ padding: '18px 20px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
           {[
             { key: 'prenom', label: fr ? 'Prénom' : 'First name', placeholder: 'Jean-Baptiste' },
             { key: 'nom', label: fr ? 'Nom' : 'Last name', placeholder: 'ANGO' },
@@ -190,7 +190,7 @@ export default function ProfilAdminPage() {
         <div style={{ fontSize: 10, letterSpacing: 1, textTransform: 'uppercase', color: colors.muted, fontWeight: 700, marginBottom: 12 }}>
           {fr ? 'Informations du compte' : 'Account information'}
         </div>
-        <div className="g-form2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
           {[
             { label: fr ? 'Identifiant' : 'ID', val: `#${admin?.id}` },
             { label: fr ? 'Rôle' : 'Role', val: isSuper ? (fr ? 'Super Administrateur' : 'Super Administrator') : (fr ? 'Administrateur' : 'Administrator') },

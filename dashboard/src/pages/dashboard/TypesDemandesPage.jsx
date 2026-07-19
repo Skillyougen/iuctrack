@@ -69,7 +69,7 @@ export default function TypesDemandesPage() {
 
   return (
     <div style={{ animation: 'fadeUp 0.35s ease both' }}>
-      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 16, marginBottom: 22, flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 16, marginBottom: 22 }}>
         <div>
           <h1 style={{ fontFamily: DISPLAY, fontSize: 30, fontWeight: 800, letterSpacing: -0.6, color: colors.text }}>{t.typesdemande}</h1>
           <p style={{ fontSize: 13.5, color: colors.muted, marginTop: 4 }}>
@@ -89,7 +89,7 @@ export default function TypesDemandesPage() {
           <h3 style={{ fontFamily: DISPLAY, fontSize: 15, fontWeight: 800, color: colors.text, marginBottom: 14 }}>
             {editingType ? (fr ? 'Modifier le type' : 'Edit type') : (fr ? 'Nouveau type de demande' : 'New request type')}
           </h3>
-          <div className="g-form2" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 12, marginBottom: 14 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 12, marginBottom: 14 }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
               <label style={{ fontSize: 11.5, color: colors.muted, fontWeight: 600 }}>{fr ? 'Libellé *' : 'Label *'}</label>
               <input style={inp} placeholder="Ex: Attestation de scolarité" value={form.libelle} onChange={e => setForm({ ...form, libelle: e.target.value })} />
@@ -112,7 +112,7 @@ export default function TypesDemandesPage() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         {types.map((type) => (
           <div key={type.id} style={{ backgroundColor: colors.card, borderRadius: 18, border: `1px solid ${colors.border}`, overflow: 'hidden' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 13, padding: '16px 18px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 13, padding: '16px 18px' }}>
               <span style={{ width: 9, height: 9, borderRadius: '50%', backgroundColor: type.actif ? colors.green : colors.muted, flexShrink: 0 }} />
               <div style={{ flex: 1, minWidth: 0, cursor: 'pointer' }} onClick={() => setExpanded(expanded === type.id ? null : type.id)}>
                 <div style={{ fontSize: 14, fontWeight: 700, color: colors.text }}>{type.libelle}</div>
@@ -149,7 +149,7 @@ export default function TypesDemandesPage() {
                     </div>
                   ))}
                   {showDocForm === type.id ? (
-                    <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginTop: 4, flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginTop: 4 }}>
                       <input style={{ ...inp, flex: 1 }} placeholder={fr ? 'Nom du document' : 'Document name'} value={docForm.libelle} onChange={e => setDocForm({ ...docForm, libelle: e.target.value })} />
                       <label style={{ fontSize: 11.5, color: colors.muted, display: 'flex', alignItems: 'center', gap: 5, whiteSpace: 'nowrap', cursor: 'pointer' }}>
                         <input type="checkbox" checked={docForm.obligatoire} onChange={e => setDocForm({ ...docForm, obligatoire: e.target.checked })} style={{ accentColor: colors.red }} />

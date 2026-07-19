@@ -29,10 +29,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="login-root" style={{ display: 'flex', minHeight: '100vh', backgroundColor: colors.bg, fontFamily: "'Instrument Sans', sans-serif" }}>
+    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: colors.bg, fontFamily: "'Instrument Sans', sans-serif" }}>
 
       {/* GAUCHE — panneau crème branding */}
-      <div className="login-left" style={{ flex: 1.2, backgroundColor: colors.panel, color: colors.panelInk, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '64px 84px', position: 'relative', overflow: 'hidden' }}>
+      <div style={{ flex: 1.2, backgroundColor: colors.panel, color: colors.panelInk, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '64px 84px', position: 'relative', overflow: 'hidden' }}>
         <img src={logoHorizontal} alt="IUCTrack" style={{ width: 230, objectFit: 'contain', marginBottom: 52, alignSelf: 'flex-start' }} />
 
         <h1 style={{ fontFamily: DISPLAY, fontWeight: 800, fontSize: 56, lineHeight: 1.04, letterSpacing: -1.5, maxWidth: 560 }}>
@@ -67,13 +67,13 @@ export default function LoginPage() {
           <circle cx="240" cy="14" r="5" fill="#C43A2F" />
         </svg>
 
-        <div className="login-copy" style={{ position: 'absolute', bottom: 28, left: 84, fontSize: 13, color: colors.panelMuted }}>
+        <div style={{ position: 'absolute', bottom: 28, left: 84, fontSize: 13, color: colors.panelMuted }}>
           © 2026 IUCTrack — Institut Universitaire de la Côte
         </div>
       </div>
 
       {/* DROITE — formulaire */}
-      <div className="login-right" style={{ width: 520, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 48 }}>
+      <div style={{ width: 520, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 48 }}>
         <div style={{ width: '100%', maxWidth: 400 }}>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 38 }}>

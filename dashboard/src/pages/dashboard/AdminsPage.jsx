@@ -140,7 +140,7 @@ export default function AdminsPage() {
 
   return (
     <div style={{ animation: 'fadeUp 0.35s ease both' }}>
-      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 16, marginBottom: 22, flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 16, marginBottom: 22 }}>
         <div>
           <h1 style={{ fontFamily: DISPLAY, fontSize: 30, fontWeight: 800, letterSpacing: -0.6, color: colors.text }}>
             {fr ? 'Administrateurs' : 'Administrators'}
@@ -166,7 +166,7 @@ export default function AdminsPage() {
           {error && (
             <div style={{ backgroundColor: 'rgba(196,58,47,0.10)', border: '1px solid rgba(196,58,47,0.30)', borderRadius: 10, padding: '10px 14px', color: colors.redInk, fontSize: 12.5, marginBottom: 14 }}>{error}</div>
           )}
-          <div className="g-form2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 14 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 14 }}>
             {[
               { key: 'nom', label: fr ? 'Nom *' : 'Last name *', placeholder: 'ANGO', type: 'text' },
               { key: 'prenom', label: fr ? 'Prénom *' : 'First name *', placeholder: 'Jean-Baptiste', type: 'text' },
@@ -190,7 +190,7 @@ export default function AdminsPage() {
           </div>
 
           {/* Rôle — cartes cliquables */}
-          <div style={{ display: 'flex', gap: 10, marginBottom: 14, flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: 10, marginBottom: 14 }}>
             <div onClick={() => setForm({ ...form, role: 'admin' })}
               style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 10, backgroundColor: colors.card2, border: `2px solid ${form.role === 'admin' ? colors.blue : colors.border}`, borderRadius: 13, padding: '12px 14px', cursor: 'pointer' }}>
               <Users size={15} color={colors.blue} />
@@ -249,7 +249,7 @@ export default function AdminsPage() {
         <Shield size={14} color={colors.redInk} />
         <span style={secLabel}>{fr ? 'Super Administrateurs' : 'Super Administrators'} ({superAdmins.length})</span>
       </div>
-      <div className="g-3col" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 26 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 26 }}>
         {loading ? (
           <div style={{ color: colors.muted, fontSize: 13 }}>{t.chargement}</div>
         ) : superAdmins.map(a => <AdminCard key={a.id} a={a} isSuper />)}
@@ -282,7 +282,7 @@ export default function AdminsPage() {
           {fr ? 'Aucun administrateur trouvé.' : 'No administrators found.'}
         </div>
       ) : (
-        <div className="g-3col" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
           {regularAdmins.map(a => <AdminCard key={a.id} a={a} />)}
         </div>
       )}

@@ -32,7 +32,7 @@ export default function NotificationsAdminPage() {
 
   return (
     <div style={{ animation: 'fadeUp 0.35s ease both' }}>
-      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 16, marginBottom: 22, flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 16, marginBottom: 22 }}>
         <div>
           <h1 style={{ fontFamily: DISPLAY, fontSize: 30, fontWeight: 800, letterSpacing: -0.6, color: colors.text }}>{t.notifications}</h1>
           <p style={{ fontSize: 13.5, color: colors.muted, marginTop: 4 }}>
@@ -47,7 +47,7 @@ export default function NotificationsAdminPage() {
       </div>
 
       {/* STATS — données réelles */}
-      <div className="g-3col" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 12, marginBottom: 18 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 12, marginBottom: 18 }}>
         {[
           { label: 'Total', val: notifications.length, color: colors.panelInk, hero: true },
           { label: t.nonlues, val: nonLues, color: colors.gold },
@@ -61,7 +61,7 @@ export default function NotificationsAdminPage() {
       </div>
 
       {/* FILTRES */}
-      <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
         {[
           { key: 'toutes', label: t.toutes },
           { key: 'non_lues', label: t.nonlues },

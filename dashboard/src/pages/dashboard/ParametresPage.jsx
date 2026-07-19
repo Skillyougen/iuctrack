@@ -23,9 +23,9 @@ export default function ParametresPage() {
         <div style={header}>{t.apparence}</div>
         <div style={{ padding: '18px 20px' }}>
           <div style={label}>{t.theme}</div>
-          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: 12 }}>
             <button onClick={() => toggleTheme('dark')}
-              style={{ flex: 1, minWidth: 230, position: 'relative', backgroundColor: '#1B2026', border: `2px solid ${theme === 'dark' ? colors.red : colors.border}`, borderRadius: 16, padding: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 12, textAlign: 'left' }}>
+              style={{ flex: 1, position: 'relative', backgroundColor: '#1B2026', border: `2px solid ${theme === 'dark' ? colors.red : colors.border}`, borderRadius: 16, padding: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 12, textAlign: 'left' }}>
               <span style={{ width: 40, height: 40, borderRadius: 12, backgroundColor: '#232A33', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#EDF1F5' }}>
                 <Moon size={17} />
               </span>
@@ -36,7 +36,7 @@ export default function ParametresPage() {
               {theme === 'dark' && <span style={check} />}
             </button>
             <button onClick={() => toggleTheme('light')}
-              style={{ flex: 1, minWidth: 230, position: 'relative', backgroundColor: '#F0EDE4', border: `2px solid ${theme === 'light' ? colors.red : colors.border}`, borderRadius: 16, padding: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 12, textAlign: 'left' }}>
+              style={{ flex: 1, position: 'relative', backgroundColor: '#F0EDE4', border: `2px solid ${theme === 'light' ? colors.red : colors.border}`, borderRadius: 16, padding: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 12, textAlign: 'left' }}>
               <span style={{ width: 40, height: 40, borderRadius: 12, backgroundColor: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#23282F', border: '1px solid rgba(35,40,47,0.1)' }}>
                 <Sun size={17} />
               </span>
@@ -55,13 +55,13 @@ export default function ParametresPage() {
         <div style={header}><Globe size={15} color={colors.muted} /> {t.preferences}</div>
         <div style={{ padding: '18px 20px' }}>
           <div style={label}>{t.langue}</div>
-          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: 12 }}>
             {[
               { key: 'fr', flag: '🇫🇷', label: t.francais },
               { key: 'en', flag: '🇬🇧', label: t.anglais },
             ].map(l => (
               <button key={l.key} onClick={() => toggleLangue(l.key)}
-                style={{ flex: 1, minWidth: 230, position: 'relative', backgroundColor: colors.card2, border: `2px solid ${langue === l.key ? colors.red : colors.border}`, borderRadius: 16, padding: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 12, textAlign: 'left' }}>
+                style={{ flex: 1, position: 'relative', backgroundColor: colors.card2, border: `2px solid ${langue === l.key ? colors.red : colors.border}`, borderRadius: 16, padding: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 12, textAlign: 'left' }}>
                 <span style={{ fontSize: 24 }}>{l.flag}</span>
                 <span style={{ fontSize: 13.5, fontWeight: 700, color: colors.text }}>{l.label}</span>
                 {langue === l.key && <span style={check} />}

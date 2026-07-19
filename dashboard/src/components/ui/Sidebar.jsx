@@ -11,9 +11,7 @@ import {
 
 const DISPLAY = "'Bricolage Grotesque', 'Instrument Sans', sans-serif";
 
-// Responsive : sur ≤1120px la sidebar devient un tiroir (classe .app-sidebar / .open, voir index.css).
-// `open` + `onClose` sont pilotés par Layout ; sur desktop ils sont sans effet.
-export default function Sidebar({ open = false, onClose = () => {} }) {
+export default function Sidebar() {
   const { admin, logout } = useAuth();
   const { colors, t } = useSettings();
   const navigate = useNavigate();
@@ -58,8 +56,7 @@ export default function Sidebar({ open = false, onClose = () => {} }) {
   ];
 
   return (
-    <div className={`app-sidebar${open ? ' open' : ''}`}
-      style={{ width: 240, display: 'flex', flexDirection: 'column', height: '100vh', position: 'fixed', left: 0, top: 0, zIndex: 50, backgroundColor: colors.side, borderRight: `1px solid ${colors.sideBorder}` }}>
+    <div style={{ width: 240, display: 'flex', flexDirection: 'column', height: '100vh', position: 'fixed', left: 0, top: 0, zIndex: 50, backgroundColor: colors.side, borderRight: `1px solid ${colors.sideBorder}` }}>
 
       {/* LOGO */}
       <div style={{ padding: '20px 18px 16px', display: 'flex', alignItems: 'center', gap: 11, borderBottom: `1px solid ${colors.sideBorder}` }}>
@@ -87,7 +84,6 @@ export default function Sidebar({ open = false, onClose = () => {} }) {
               key={item.to}
               to={item.to}
               end={item.to === '/'}
-              onClick={onClose}
               style={({ isActive }) => ({
                 display: 'flex', alignItems: 'center', gap: 10,
                 padding: '10px 13px', borderRadius: 12, fontSize: 13.5,
@@ -111,7 +107,7 @@ export default function Sidebar({ open = false, onClose = () => {} }) {
       </nav>
 
       {/* CARTE ADMIN — données réelles du compte connecté */}
-      <NavLink to="/profil" onClick={onClose} style={{ margin: '10px 12px 0', borderRadius: 14, backgroundColor: colors.card2, border: `1px solid ${colors.sideBorder}`, overflow: 'hidden', textDecoration: 'none' }}>
+      <NavLink to="/profil" style={{ margin: '10px 12px 0', borderRadius: 14, backgroundColor: colors.card2, border: `1px solid ${colors.sideBorder}`, overflow: 'hidden', textDecoration: 'none' }}>
         <div style={{ height: 34, background: 'linear-gradient(120deg, #C43A2F 0%, #7E2A20 55%, #1C4534 100%)' }} />
         <div style={{ padding: '0 12px 12px' }}>
           <div style={{ width: 38, height: 38, borderRadius: 11, backgroundColor: colors.red, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 800, color: '#FFFFFF', marginTop: -19, border: `2px solid ${colors.side}` }}>

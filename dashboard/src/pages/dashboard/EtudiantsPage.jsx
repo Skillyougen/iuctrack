@@ -134,8 +134,8 @@ export default function EtudiantsPage() {
             {fr ? 'Liste des étudiants enregistrés dans le système' : 'Students registered in the system'}
           </p>
         </div>
-        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 9, backgroundColor: colors.card, border: `1px solid ${colors.border}`, borderRadius: 12, padding: '9px 14px', width: 230, maxWidth: '100%' }}>
+        <div style={{ display: 'flex', gap: 10 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 9, backgroundColor: colors.card, border: `1px solid ${colors.border}`, borderRadius: 12, padding: '9px 14px', width: 230 }}>
             <Search size={14} color={colors.muted} />
             <input style={{ background: 'none', border: 'none', outline: 'none', color: colors.text, fontSize: 13, flex: 1 }}
               placeholder={fr ? 'Rechercher…' : 'Search…'} value={search} onChange={e => setSearch(e.target.value)} />
@@ -160,7 +160,7 @@ export default function EtudiantsPage() {
           {error && (
             <div style={{ backgroundColor: 'rgba(196,58,47,0.10)', border: '1px solid rgba(196,58,47,0.30)', borderRadius: 10, padding: '10px 14px', color: colors.redInk, fontSize: 12.5, marginBottom: 14 }}>{error}</div>
           )}
-          <div className="g-form2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 14 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 14 }}>
             {[
               { key: 'matricule', label: 'Matricule *', placeholder: 'IUC2024-0001' },
               { key: 'nom', label: fr ? 'Nom *' : 'Last name *', placeholder: 'NGONO' },
@@ -322,7 +322,7 @@ export default function EtudiantsPage() {
       )}
 
       {/* LISTE + DÉTAIL — données réelles */}
-      <div className="g-split" style={{ display: 'grid', gridTemplateColumns: selected ? '1fr 360px' : '1fr', gap: 16, alignItems: 'start' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: selected ? '1fr 360px' : '1fr', gap: 16, alignItems: 'start' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
           {loading ? (
             <div style={{ color: colors.muted, fontSize: 13, padding: 24, textAlign: 'center' }}>{t.chargement}</div>
@@ -332,7 +332,7 @@ export default function EtudiantsPage() {
             </div>
           ) : filtered.map(e => (
             <div key={e.id} onClick={() => selectEtudiant(e)}
-              style={{ backgroundColor: selected?.id === e.id ? 'rgba(196,58,47,0.06)' : colors.card, borderRadius: 16, padding: '14px 16px', border: `1px solid ${selected?.id === e.id ? colors.red : colors.border}`, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 13, flexWrap: 'wrap', transition: 'border-color 0.15s' }}>
+              style={{ backgroundColor: selected?.id === e.id ? 'rgba(196,58,47,0.06)' : colors.card, borderRadius: 16, padding: '14px 16px', border: `1px solid ${selected?.id === e.id ? colors.red : colors.border}`, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 13, transition: 'border-color 0.15s' }}>
               <div style={{ width: 42, height: 42, borderRadius: 13, backgroundColor: colors.red, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 800, color: '#FFFFFF', flexShrink: 0 }}>
                 {e.nom?.charAt(0)}{e.prenom?.charAt(0)}
               </div>
@@ -349,7 +349,7 @@ export default function EtudiantsPage() {
         </div>
 
         {selected && (
-          <div className="split-detail" style={{ backgroundColor: colors.card, borderRadius: 20, border: `1px solid ${colors.border}`, padding: 20, position: 'sticky', top: 86 }}>
+          <div style={{ backgroundColor: colors.card, borderRadius: 20, border: `1px solid ${colors.border}`, padding: 20, position: 'sticky', top: 86 }}>
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
               <button onClick={() => setSelected(null)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: colors.muted, display: 'flex' }}>
                 <X size={15} />

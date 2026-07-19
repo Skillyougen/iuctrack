@@ -4,7 +4,7 @@ import api from '../../services/api';
 import { useSettings } from '../../context/SettingsContext';
 
 const DISPLAY = "'Bricolage Grotesque', 'Instrument Sans', sans-serif";
-const BASE_STORAGE = 'https://iuctrack-api.onrender.com/storage/';
+const BASE_STORAGE = 'http://127.0.0.1:8000/storage/';
 
 const STATUTS = {
   envoyee:  { label: 'Envoyée',  labelEn: 'Sent',        color: '#6B8FCB', bg: 'rgba(107,143,203,0.16)' },
@@ -240,7 +240,7 @@ export default function DemandesPage() {
             {fr ? 'Gérez et traitez les demandes des étudiants' : 'Manage and process student requests'}
           </p>
         </div>
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 8 }}>
           {['', 'envoyee', 'en_cours', 'terminee'].map((f) => (
             <button key={f} onClick={() => setFiltre(f)}
               style={{ backgroundColor: filtre === f ? colors.red : colors.card, border: `1px solid ${filtre === f ? colors.red : colors.border}`, borderRadius: 999, padding: '8px 16px', color: filtre === f ? '#FFFFFF' : colors.muted, fontSize: 12.5, fontWeight: filtre === f ? 700 : 600, cursor: 'pointer' }}>
@@ -251,7 +251,7 @@ export default function DemandesPage() {
       </div>
 
       {/* STATS — données réelles */}
-      <div className="g-kpi4" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 12, marginBottom: 20 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 12, marginBottom: 20 }}>
         {[
           { label: 'Total', val: stats.total, color: colors.panelInk, hero: true },
           { label: t.envoyees, val: stats.envoyee, color: colors.blue },
@@ -265,7 +265,7 @@ export default function DemandesPage() {
         ))}
       </div>
 
-      <div className="g-split" style={{ display: 'grid', gridTemplateColumns: selected ? '1fr 420px' : '1fr', gap: 16, alignItems: 'start' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: selected ? '1fr 420px' : '1fr', gap: 16, alignItems: 'start' }}>
         {/* LISTE — données réelles */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
           {loading ? (
@@ -303,7 +303,7 @@ export default function DemandesPage() {
 
         {/* DÉTAIL — sticky, avec timeline */}
         {selected && (
-          <div className="split-detail" style={{ backgroundColor: colors.card, borderRadius: 20, border: `1px solid ${colors.border}`, padding: 20, position: 'sticky', top: 86, maxHeight: 'calc(100vh - 110px)', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 18 }}>
+          <div style={{ backgroundColor: colors.card, borderRadius: 20, border: `1px solid ${colors.border}`, padding: 20, position: 'sticky', top: 86, maxHeight: 'calc(100vh - 110px)', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 18 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontFamily: DISPLAY, fontSize: 15.5, fontWeight: 800, color: colors.text }}>
                 {fr ? 'Détail de la demande' : 'Request detail'}

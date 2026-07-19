@@ -55,7 +55,7 @@ export default function DocumentsRequisPage() {
         </p>
       </div>
 
-      <div className="g-side" style={{ display: 'grid', gridTemplateColumns: '300px 1fr', gap: 16, alignItems: 'start' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '300px 1fr', gap: 16, alignItems: 'start' }}>
         {/* TYPES — données réelles */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <div style={{ fontSize: 10, letterSpacing: 1, textTransform: 'uppercase', color: colors.muted, fontWeight: 700, padding: '0 4px 2px' }}>
@@ -80,7 +80,7 @@ export default function DocumentsRequisPage() {
         {/* DOCUMENTS DU TYPE — endpoints réels */}
         {selectedType && (
           <div style={{ backgroundColor: colors.card, borderRadius: 20, border: `1px solid ${colors.border}`, overflow: 'hidden' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, flexWrap: 'wrap', padding: '17px 20px', borderBottom: `1px solid ${colors.border}` }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '17px 20px', borderBottom: `1px solid ${colors.border}` }}>
               <div>
                 <div style={{ fontFamily: DISPLAY, fontSize: 16, fontWeight: 800, color: colors.text }}>{selectedType.libelle}</div>
                 <div style={{ fontSize: 12, color: colors.muted, marginTop: 2 }}>{selectedType.description}</div>

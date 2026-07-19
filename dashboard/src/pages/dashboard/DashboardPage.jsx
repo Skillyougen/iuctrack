@@ -103,14 +103,14 @@ export default function DashboardPage() {
       </div>
 
       {/* KPI — données réelles */}
-      <div className="g-kpi4" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 14, marginBottom: 16 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 14, marginBottom: 16 }}>
         {kpi(t.totaldemandes, stats.total, colors.text, colors.red, <FileText size={17} />, true)}
         {kpi(t.envoyees, stats.envoyee, colors.blue, 'rgba(107,143,203,0.15)', <Send size={16} />)}
         {kpi(t.encours, stats.en_cours, colors.gold, 'rgba(233,168,76,0.15)', <Clock size={16} />)}
         {kpi(t.terminees, stats.terminee, colors.greenInk, 'rgba(34,160,107,0.15)', <CheckCircle size={16} />)}
       </div>
 
-      <div className="g-2col" style={{ display: 'grid', gridTemplateColumns: '1.65fr 1fr', gap: 16, marginBottom: 16 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1.65fr 1fr', gap: 16, marginBottom: 16 }}>
         {/* ACTIVITÉ 7 JOURS — panneau crème */}
         <div style={{ backgroundColor: colors.panel, color: colors.panelInk, borderRadius: 22, padding: '22px 24px', border: `1px solid ${colors.panelBorder}` }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
@@ -174,7 +174,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <div className="g-2col" style={{ display: 'grid', gridTemplateColumns: '1.65fr 1fr', gap: 16 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1.65fr 1fr', gap: 16 }}>
         {/* DERNIÈRES DEMANDES — données réelles */}
         <div style={{ ...card, overflow: 'hidden' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: `1px solid ${colors.border}` }}>
